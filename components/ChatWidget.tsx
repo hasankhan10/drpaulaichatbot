@@ -10,6 +10,12 @@ export default function ChatWidget() {
   
   const timerRef = useRef<NodeJS.Timeout | null>(null);
 
+  // Reset greeting flags on page mount (e.g. reload or refresh) to ensure welcome message plays again
+  useEffect(() => {
+    localStorage.removeItem('drpaul_chat_opened');
+    sessionStorage.removeItem('drpaul_greeting_dismissed');
+  }, []);
+
   // Auto-Greeting Timer (Triggers after 5 seconds of page landing)
   useEffect(() => {
     const hasBeenOpened = localStorage.getItem('drpaul_chat_opened');

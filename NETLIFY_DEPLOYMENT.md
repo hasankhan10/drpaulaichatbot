@@ -116,7 +116,7 @@ Copy the following HTML/JS snippet. **Be sure to replace** `https://YOUR-SUBDOMA
     // 5. Create and Configure Iframe Element
     const iframe = document.createElement('iframe');
     iframe.src = CHATBOT_URL;
-    iframe.title = "Dr. Paul Harrison AI Assistant";
+    iframe.title = "Dr. Paul AI Assistant";
     iframe.setAttribute('allow', 'clipboard-write');
 
     // 6. Assemble & Inject to Page Body
