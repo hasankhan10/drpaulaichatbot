@@ -217,6 +217,20 @@ const BookingForm: React.FC<BookingFormProps> = ({ onSuccess, initialConcern = '
   );
 };
 
+const getDynamicWelcomeGreeting = (): string => {
+  if (typeof window === 'undefined') return 'Namaste';
+  const currentHour = new Date().getHours();
+  if (currentHour >= 5 && currentHour < 12) {
+    return 'Good morning';
+  } else if (currentHour >= 12 && currentHour < 17) {
+    return 'Good afternoon';
+  } else if (currentHour >= 17 && currentHour < 22) {
+    return 'Good evening';
+  } else {
+    return 'Namaste';
+  }
+};
+
 // ==========================================
 // 2. MAIN CHAT CONSOLE CONTAINER COMPONENT
 // ==========================================
@@ -249,7 +263,7 @@ export default function ChatContainer({ isOpen = false, onClose, showCloseButton
           {
             id: 'welcome',
             role: 'assistant',
-            content: "Namaste! 🙏 Welcome to Dr. Paul's Hair & Skin Clinic. How can I assist you today? Feel free to ask about our FUE/QHT Painless Hair Transplants, Korean Glass Skin facials, Fusion Homeopathy, or clinical locations!",
+            content: `${getDynamicWelcomeGreeting()}! 🙏 Welcome to Dr. Paul's Hair & Skin Clinic. How can I assist you today? Feel free to ask about our FUE/QHT Painless Hair Transplants, Korean Glass Skin facials, Fusion Homeopathy, or clinical locations!`,
             timestamp: new Date(),
           },
         ]);

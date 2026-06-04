@@ -7,6 +7,7 @@ import ChatContainer from './ChatContainer';
 export default function ChatWidget() {
   const [isOpen, setIsOpen] = useState(false);
   const [showGreeting, setShowGreeting] = useState(false);
+  const [greetingText, setGreetingText] = useState('Namaste! 👋');
   
   const timerRef = useRef<NodeJS.Timeout | null>(null);
 
@@ -14,6 +15,22 @@ export default function ChatWidget() {
   useEffect(() => {
     localStorage.removeItem('drpaul_chat_opened');
     sessionStorage.removeItem('drpaul_greeting_dismissed');
+
+    // Calculate dynamic time-of-day greeting locally in the browser to avoid SSR hydration mismatches
+    const currentHour = new Date().getHours();
+    let timeGreeting = 'Good Day';
+    if (currentHour >= 5 && currentHour < 12) {
+      timeGreeting = 'Good Morning';
+    } else if (currentHour === 12) {
+      timeGreeting = 'Good Noon';
+    } else if (currentHour >= 13 && currentHour < 17) {
+      timeGreeting = 'Good Afternoon';
+    } else if (currentHour >= 17 && currentHour < 24) {
+      timeGreeting = 'Good Evening';
+    } else {
+      timeGreeting = 'Good Day';
+    }
+    setGreetingText(`Namaste! ${timeGreeting} 👋`);
   }, []);
 
   // Auto-Greeting Timer (Triggers after 5 seconds of page landing)
@@ -99,7 +116,7 @@ export default function ChatWidget() {
           {/* Greeting Text Content */}
           <div className="flex-1 space-y-0.5 pr-4">
             <h4 className="font-bold text-slate-800 text-[13px] leading-tight flex items-center gap-1.5">
-              Hi there! <span className="animate-wave text-sm">👋</span>
+              {greetingText}
             </h4>
             <p className="text-slate-500 text-xs font-medium leading-normal group-hover:text-slate-700 transition-colors">
               Hey, how can I help you?
