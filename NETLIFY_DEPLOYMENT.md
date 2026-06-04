@@ -95,6 +95,8 @@ Copy the following HTML/JS snippet. **Be sure to replace** `https://YOUR-SUBDOMA
           height: 100% !important;
           bottom: 0 !important;
           right: 0 !important;
+          top: 0 !important;
+          left: 0 !important;
         }
         #drpaul-chat-container.state-greeting {
           width: 100%;

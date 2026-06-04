@@ -58,28 +58,35 @@ export default function ChatWidget() {
   };
 
   return (
-    <div className="fixed bottom-6 right-6 z-50 font-sans flex flex-col items-end">
+    <div className={`fixed z-50 font-sans transition-all duration-300 ${
+      isOpen 
+        ? 'inset-0 w-full h-full sm:inset-auto sm:bottom-6 sm:right-6 sm:w-auto sm:h-auto sm:flex sm:flex-col sm:items-end' 
+        : 'bottom-6 right-6 flex flex-col items-end'
+    }`}>
       
       {/* 1. Popover Chat Window (Animated Transition Container) */}
-      <div className={`absolute bottom-16 right-0 transition-all duration-300 ease-out origin-bottom-right ${
+      <div className={`transition-all duration-300 ease-out origin-bottom-right ${
         isOpen 
           ? 'scale-100 opacity-100 pointer-events-auto translate-y-0 visible' 
           : 'scale-90 opacity-0 pointer-events-none translate-y-8 invisible'
+      } ${
+        isOpen 
+          ? 'fixed inset-0 w-full h-full sm:absolute sm:inset-auto sm:bottom-16 sm:right-0 sm:w-auto sm:h-auto' 
+          : 'absolute bottom-16 right-0'
       }`}>
         <ChatContainer 
           isOpen={isOpen}
           onClose={handleOpenToggle}
           showCloseButton={true}
-          className="w-[380px] sm:w-[400px] h-[580px] shadow-2xl"
+          className="w-full h-full sm:w-[400px] sm:h-[600px]"
         />
       </div>
-
 
       {/* 2. Premium Speech Bubble Greeting Tooltip */}
       {showGreeting && !isOpen && (
         <div 
           onClick={handleOpenToggle}
-          className="absolute bottom-1 right-16 mr-2 w-72 bg-white/95 backdrop-blur-md border border-slate-100 shadow-2xl p-3.5 rounded-2xl flex items-start gap-3 cursor-pointer group hover:scale-[1.02] hover:border-red-100 transition-all duration-300 animate-in fade-in slide-in-from-right-4 duration-500"
+          className="absolute bottom-1 right-16 mr-2 w-[calc(100vw-100px)] max-w-[288px] sm:w-80 bg-white/95 backdrop-blur-md border border-slate-100 shadow-2xl p-3.5 rounded-2xl flex items-start gap-3 cursor-pointer group hover:scale-[1.02] hover:border-red-100 transition-all duration-300 animate-in fade-in slide-in-from-right-4 duration-500"
         >
           {/* Clinic Assistant Avatar */}
           <div className="relative shrink-0">
@@ -115,7 +122,9 @@ export default function ChatWidget() {
       {/* 3. Floating Circular Bubble Button */}
       <button
         onClick={handleOpenToggle}
-        className="w-14 h-14 rounded-full bg-gradient-to-r from-red-600 to-rose-600 text-white flex items-center justify-center shadow-xl hover:shadow-2xl hover:scale-105 active:scale-95 transition-all duration-300 border border-red-500/20 group relative"
+        className={`w-14 h-14 rounded-full bg-gradient-to-r from-red-600 to-rose-600 text-white items-center justify-center shadow-xl hover:shadow-2xl hover:scale-105 active:scale-95 transition-all duration-300 border border-red-500/20 group relative ${
+          isOpen ? 'hidden sm:flex' : 'flex'
+        }`}
       >
         {isOpen ? (
           <X className="w-6 h-6 transition-transform duration-300" />

@@ -494,7 +494,7 @@ export default function ChatContainer({ isOpen = false, onClose, showCloseButton
   ];
 
   return (
-    <div className={`relative flex flex-col bg-white border border-slate-100 shadow-2xl rounded-2xl overflow-hidden ${className}`}>
+    <div className={`relative flex flex-col bg-white overflow-hidden sm:rounded-2xl rounded-none sm:shadow-2xl shadow-none sm:border sm:border-slate-100 border-none ${className}`}>
       {/* Dynamic Keyframes Injection to guarantee Instant WhatsApp-Style Blinking works immediately without browser stylesheet caching! */}
       <style>{`
         @keyframes typingBlinkLocal {
