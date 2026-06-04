@@ -488,9 +488,11 @@ export default function ChatContainer({ isOpen = false, onClose, showCloseButton
   };
 
   const quickReplies = [
-    { text: '🗓️ Painless Hair Transplant', query: 'Tell me about your Painless Hair Transplant (QHT/FUE)' },
-    { text: '📅 Book Appointment', query: 'I want to book an appointment' },
-    { text: '🕒 Hours & Locations', query: 'What are your clinic locations, phone numbers, and working hours?' },
+    { text: '💇 Hair Fall', query: 'I am experiencing hair fall and thinning' },
+    { text: '🧑‍🦲 Hair Transplant', query: 'I want to know about a Hair Transplant and graft cost' },
+    { text: '✨ Skin Concern', query: 'I have a skin concern and want to discuss treatments' },
+    { text: '🧴 Product Guidance', query: 'I need guidance on clinical support products' },
+    { text: '🌐 Online Consultation', query: 'I want to schedule an online doctor consultation' },
   ];
 
   return (
