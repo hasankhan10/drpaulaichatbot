@@ -253,7 +253,7 @@ export default function ChatContainer({ isOpen = false, onClose, showCloseButton
     return () => cancelAnimationFrame(handle);
   }, []);
 
-  // Trigger the welcome message typing effect (3 seconds) only when the chat window is actively opened by the user
+  // Trigger the welcome message typing effect (6 seconds) only when the chat window is actively opened by the user
   useEffect(() => {
     if (isOpen && messages.length === 0) {
       setIsTyping(true);
@@ -267,7 +267,7 @@ export default function ChatContainer({ isOpen = false, onClose, showCloseButton
             timestamp: new Date(),
           },
         ]);
-      }, 3000); // 3 seconds typing delay for the initial welcome message
+      }, 6000); // 6 seconds typing delay for the initial welcome message
 
       return () => clearTimeout(timer);
     }
@@ -326,30 +326,30 @@ export default function ChatContainer({ isOpen = false, onClose, showCloseButton
 
     // INTERCEPT BOOKING REQUESTS: Immediately slide up the structured booking form card!
     if (messageText === 'I want to book an appointment') {
-      // Delivered after 500ms (scaled)
+      // Delivered after 1000ms (scaled)
       setTimeout(() => {
         setMessages((prev) =>
           prev.map((msg) =>
             msg.id === userMessageId ? { ...msg, status: 'delivered' as const } : msg
           )
         );
-      }, 500 * delayScale);
+      }, 1000 * delayScale);
 
-      // Read after 1000ms (scaled)
+      // Read after 2000ms (scaled)
       setTimeout(() => {
         setMessages((prev) =>
           prev.map((msg) =>
             msg.id === userMessageId ? { ...msg, status: 'read' as const } : msg
           )
         );
-      }, 1000 * delayScale);
+      }, 2000 * delayScale);
 
-      // Bouncing dots typing begins after 1500ms
+      // Bouncing dots typing begins after 3000ms
       setTimeout(() => {
         setIsTyping(true);
-      }, 1500 * delayScale);
+      }, 3000 * delayScale);
 
-      // Insert intro message and form bubble after 3000ms
+      // Insert intro message and form bubble after 6000ms
       setTimeout(() => {
         setIsTyping(false);
         setMessages((prev) => [
@@ -368,7 +368,7 @@ export default function ChatContainer({ isOpen = false, onClose, showCloseButton
             isForm: true,
           }
         ]);
-      }, 3000 * delayScale);
+      }, 6000 * delayScale);
 
       return; // Exit out, bypassing AI completely!
     }
@@ -405,28 +405,28 @@ export default function ChatContainer({ isOpen = false, onClose, showCloseButton
       }
     })();
 
-    // Ticks Delivered transition after 500ms
+    // Ticks Delivered transition after 1000ms
     setTimeout(() => {
       setMessages((prev) =>
         prev.map((msg) =>
           msg.id === userMessageId ? { ...msg, status: 'delivered' as const } : msg
         )
       );
-    }, 500);
+    }, 1000);
 
-    // Ticks Read transition after 1000ms
+    // Ticks Read transition after 2000ms
     setTimeout(() => {
       setMessages((prev) =>
         prev.map((msg) =>
           msg.id === userMessageId ? { ...msg, status: 'read' as const } : msg
         )
       );
-    }, 1000);
+    }, 2000);
 
-    // Bouncing dots typing indicator begins after 1500ms
+    // Bouncing dots typing indicator begins after 3000ms
     setTimeout(() => {
       setIsTyping(true);
-    }, 1500);
+    }, 3000);
 
     // Capture starting timestamp to compute elapsed network overhead
     const startTime = Date.now();
@@ -450,17 +450,17 @@ export default function ChatContainer({ isOpen = false, onClose, showCloseButton
         shouldShowForm = true;
       }
 
-      // 2. Dynamic typing calculation: 15ms per character.
-      // Capped between 1.0s (min) and 5.0s (max) to preserve lifelike realism.
+      // 2. Dynamic typing calculation: 30ms per character.
+      // Capped between 2.0s (min) and 10.0s (max) to preserve lifelike realism.
       const charCount = cleanText.length;
-      let typingDuration = Math.max(1000, Math.min(5000, charCount * 15));
+      let typingDuration = Math.max(2000, Math.min(10000, charCount * 30));
 
       // Apply delayScale factor (50% reduction for subsequent queries)
       typingDuration = typingDuration * delayScale;
 
       // Calculate how much network time has already elapsed
       const elapsed = Date.now() - startTime;
-      const prepTime = 1500; // Ticks preparation time
+      const prepTime = 3000; // Ticks preparation time (delivered + read + typing buffer)
       const totalDesiredDelay = prepTime + typingDuration;
 
       // Remaining typing delay to execute

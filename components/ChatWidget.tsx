@@ -33,7 +33,7 @@ export default function ChatWidget() {
     setGreetingText(`Namaste! ${timeGreeting} 👋`);
   }, []);
 
-  // Auto-Greeting Timer (Triggers after 5 seconds of page landing)
+  // Auto-Greeting Timer (Triggers after 10 seconds of page landing)
   useEffect(() => {
     const hasBeenOpened = localStorage.getItem('drpaul_chat_opened');
     const wasGreetingDismissed = sessionStorage.getItem('drpaul_greeting_dismissed');
@@ -41,7 +41,7 @@ export default function ChatWidget() {
     if (!hasBeenOpened && !wasGreetingDismissed && !isOpen) {
       timerRef.current = setTimeout(() => {
         setShowGreeting(true);
-      }, 5000); // 5 seconds delay for greeting tooltip
+      }, 10000); // 10 seconds delay for greeting tooltip
     }
 
     return () => {
